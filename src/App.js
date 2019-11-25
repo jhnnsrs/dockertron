@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Button} from "reactstrap"
+import {runDocker, runPython} from "./Docker";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         >
           Learn React
         </a>
+        <Button onClick={() => runPython()}>Button</Button>
+        <Button onClick={() => runDocker()}>JAJAJA</Button>
       </header>
     </div>
   );
