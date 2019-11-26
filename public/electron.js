@@ -10,6 +10,10 @@ let mainWindow;
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 900, height: 680,
+        titleBarStyle : "hidden",
+        darkTheme: true,
+        autoHideMenuBar: true,
+        frame: false,
         webPreferences: {
             nodeIntegration: true
         }});

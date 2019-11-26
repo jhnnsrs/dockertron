@@ -1,9 +1,16 @@
 .App {
   text-align: center;
 }
-
+.sc-bdVaJa bgzObG{
+  background-color: #282c34;
+}
 .App-logo {
   height: 40vmin;
+}
+
+.wrap {
+  background-color: rgba(251, 244, 255, 0.2);
+  width: 100%;
 }
 
 .App-header {
@@ -12,11 +19,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
   color: #09d3ac;
+}
+.smalltext {
+  font-size: 13px;
+  color: #cce5ff;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
 }
