@@ -42,20 +42,63 @@ export const runDocker = () => {
     const app = window.require('electron').remote.app
 
     const basepath = app.getAppPath()
-    const exec = window.require('child_process').exec;
+    const spawn = window.require('child_process').spawn;
 
-    function execute(command, callback) {
-        exec(command, (error, stdout, stderr) => {
-            callback(stdout);
-        });
+    function execute(command, args,callback, exit, error) {
+        const runEnvironment = spawn("cmd", ['/c', ...command]);
+
+        runEnvironment.stdout.on("data", (data) => callback(data))
+        runEnvironment.stderr.on("data", (data) => error(data))
+        runEnvironment.on("exit", (data) => exit(data))
+
+        return runEnvironment
     };
 
 
     const joinedPath = path.join(basepath,'python')
 
 // call the function
-    execute('cd "' + joinedPath +'" && docker-compose up', (output) => {
-        console.log(output);
-    });
+    const env = execute(['cd', joinedPath, "&&", "docker-compose", "up"], ["."], (output) => {
+        console.log(output.toString());
+    }, (data) => {
+        console.log("Start Docker Exited with" + data)
+    }, data => console.error(data.toString()))
 
+    console.log("REACHED HERE")
+
+    return env
+}
+
+export const killDocker = () => {
+
+    const fs = window.require('fs');
+    const path = window.require('path');
+    const app = window.require('electron').remote.app
+
+    const basepath = app.getAppPath()
+    const spawn = window.require('child_process').spawn;
+
+    function execute(command, args,callback, exit, error) {
+        const runEnvironment = spawn("cmd", ['/c', ...command]);
+
+        runEnvironment.stdout.on("data", (data) => callback(data))
+        runEnvironment.stderr.on("data", (data) => error(data))
+        runEnvironment.on("exit", (data) => exit(data))
+
+        return runEnvironment
+    };
+
+
+    const joinedPath = path.join(basepath,'python')
+
+// call the function
+    const env = execute(['cd', joinedPath, "&&", "docker-compose", "kill"], ["."], (output) => {
+        console.log(output.toString());
+    }, (data) => {
+        console.log("Kill Docker Exited with" + data)
+    }, data => console.error(data.toString()))
+
+    console.log("REACHED HERE")
+
+    return env
 }
